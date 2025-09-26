@@ -9,12 +9,14 @@ import { Label } from "@/components/ui/label";
 import { Eye, EyeOff } from "lucide-react";
 import { RiMailSendLine } from "react-icons/ri";
 import { TbLockPassword } from "react-icons/tb";
+import { useRouter } from "next/navigation";
 
 interface Props {
   onForgot: () => void;
 }
 
 export default function LoginForm({ onForgot }: Props) {
+    const router = useRouter();
   const [showPassword, setShowPassword] = useState(false);
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
@@ -173,7 +175,8 @@ export default function LoginForm({ onForgot }: Props) {
 
         {/* Login button */}
         <Button
-          type="submit"
+          //type="submit"
+          onClick={() => router.push("/dashboard")}
           className="w-full h-10 sm:h-12 md:h-14 rounded-md bg-[#599400] hover:bg-[#4d8500] text-white text-sm sm:text-base shadow"
         >
           Login →
