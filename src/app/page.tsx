@@ -54,10 +54,10 @@ export default function LoginPage() {
           )}
         </AnimatePresence>
 
-        {/* back link */}
+         {/* clinician login  */}
         <div className="absolute bottom-3 sm:bottom-5 left-1/2 -translate-x-1/2 -ml-4 sm:-ml-6">
           <a
-            href="#"
+            href="https://acplus.com/"
             className="text-xs sm:text-sm text-[#599400] hover:underline flex items-center gap-2"
           >
             ← Back to Clinician Login
