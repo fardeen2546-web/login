@@ -1,133 +1,102 @@
-// import { cn } from "@/lib/utils"
-// import { Activity, Building2, ListChecks, Phone, Settings, Star, Users } from "lucide-react"
+"use client";
 
-// const sidebarItems = [
-//   { icon: Activity, active: true, label: "Dashboard" },
-//   { icon: Users, active: false, label: "Patients" },
-//   { icon: Star, active: false, label: "Care" },
-//   { icon: ListChecks, active: false, label: "Tasks" },
-//   { icon: Phone, active: false, label: "Calls" },
-//   { icon: Building2, active: false, label: "Billing" },
-//   { icon: Settings, active: false, label: "Settings" },
-// ]
+import { useState } from "react";
+import Link from "next/link";
+import Image from "next/image";
+import {
+  BarChart3,
+  Users,
+  FileText,
+  Calendar,
+  PhoneCall,
+  CreditCard,
+  Settings,
+  ArrowLeft,
+  ArrowRight,
+} from "lucide-react";
+import { cn } from "@/lib/utils";
+import { usePathname } from "next/navigation";
 
-// export default function Sidebar() {
-//   return (
-//     <aside className="sticky left-0 top-16 z-10 h-[calc(100vh-4rem)] w-14 border-r bg-[color:var(--sidebar-plate)]">
-//       <div className="flex h-full flex-col items-center gap-3 py-4">
-//         {sidebarItems.map(({ icon: Icon, active, label }, i) => (
-//           <button
-//             key={i}
-//             aria-label={label}
-//             className={cn(
-//               "relative flex h-10 w-10 items-center justify-center rounded-xl text-muted-foreground transition",
-//               active ? "active-gradient text-foreground shadow-sm" : "hover:bg-muted/60 hover:text-foreground",
-//             )}
-//           >
-//             <Icon className="h-5 w-5" />
-//             {active && <span className="sr-only">Current: {label}</span>}
-//           </button>
-//         ))}
-//       </div>
-//     </aside>
-//   )
-// }
+const menuItems = [
+  { icon: BarChart3, label: "Dashboard", href: "/dashboard" },
+  { icon: Users, label: "Patients", href: "/dashboard/patients" },
+  { icon: "connect", label: "Quick Connect", href: "/dashboard/quick-connect" },
+  { icon: FileText, label: "Clinical Docs", href: "/dashboard/clinical-docs" },
+  { icon: Calendar, label: "Appointments", href: "/dashboard/appointments" },
+  { icon: PhoneCall, label: "Call History", href: "/dashboard/call-history" },
+  { icon: CreditCard, label: "Reporting", href: "/dashboard/reporting" },
+  { icon: Settings, label: "Settings", href: "/dashboard/settings" },
+];
 
-"use client"
-
-import * as React from "react"
-import Link from "next/link"
-import { usePathname } from "next/navigation"
-import { Tooltip, TooltipContent, TooltipProvider, TooltipTrigger } from "@/components/ui/tooltip"
-import { Button } from "@/components/ui/button"
-import { BarChart3, Users, Sparkles, ListChecks, Phone, Landmark, Settings } from "lucide-react"
-import { cn } from "@/lib/utils"
-
-type Item = {
-  key: string
-  label: string
-  href: string
-  icon: React.ComponentType<React.SVGProps<SVGSVGElement>>
-}
-
-const ITEMS: Item[] = [
-  { key: "dashboard", label: "Dashboard", href: "#", icon: BarChart3 },
-  { key: "network", label: "Network", href: "#", icon: Sparkles },
-  { key: "care", label: "Care", href: "#", icon: Users },
-  { key: "tasks", label: "Tasks", href: "#", icon: ListChecks },
-  { key: "calls", label: "Calls", href: "#", icon: Phone },
-  { key: "billing", label: "Billing", href: "#", icon: Landmark },
-  { key: "settings", label: "Settings", href: "#", icon: Settings },
-]
-
-export function Sidebar() {
-  const pathname = usePathname()
-  const [active, setActive] = React.useState<string>("dashboard")
-
-  // allow keyboard 1-7 to move active selection quickly
-  React.useEffect(() => {
-    const onKey = (e: KeyboardEvent) => {
-      if (e.key >= "1" && e.key <= String(ITEMS.length)) {
-        const idx = Number(e.key) - 1
-        setActive(ITEMS[idx].key)
-      }
-    }
-    window.addEventListener("keydown", onKey)
-    return () => window.removeEventListener("keydown", onKey)
-  }, [])
+export default function Sidebar() {
+  const [isExpanded, setIsExpanded] = useState(false);
+  const pathname = usePathname();
 
   return (
-    <TooltipProvider>
-      <aside
-        aria-label="Primary"
-        className="sticky top-0 h-[calc(100dvh)] w-16 shrink-0 border-r bg-white/95 backdrop-blur supports-[backdrop-filter]:bg-white/80"
+    <aside
+      className={cn(
+        "relative flex flex-col bg-white transition-all duration-300 h-full shrink-0",
+        isExpanded
+          ? "w-[220px] sm:w-[240px] md:w-[260px] lg:w-[280px]"
+          : "w-16 sm:w-20"
+      )}
+    >
+      {/* Toggle button */}
+      <button
+        aria-label={isExpanded ? "Collapse sidebar" : "Expand sidebar"}
+        onClick={() => setIsExpanded((s) => !s)}
+        className="absolute -right-4 -top-4 z-30 h-9 w-9 md:h-11 md:w-11 rounded-full bg-white flex items-center justify-center hover:bg-gray-50 focus:outline-none"
       >
-        <div className="flex h-full flex-col items-center justify-between py-3">
-          {/* Top group */}
-          <nav className="flex flex-col items-center gap-2">
-            {ITEMS.map((item) => {
-              const Icon = item.icon
-              const isActive = active === item.key
-              return (
-                <Tooltip key={item.key}>
-                  <TooltipTrigger asChild>
-                    <Button
-                      variant="ghost"
-                      size="icon"
-                      aria-label={item.label}
-                      aria-current={isActive ? "page" : undefined}
-                      className={cn(
-                        "relative h-10 w-10 rounded-lg text-muted-foreground hover:text-foreground",
-                        isActive &&
-                          "text-foreground sidebar-active before:absolute before:inset-0 before:rounded-lg before:bg-[var(--sidebar-active)] before:shadow-[0_1px_0_rgba(0,0,0,0.06)_inset] before:z-[-1]",
-                      )}
-                      onClick={() => setActive(item.key)}
-                      asChild
-                    >
-                      <Link href={item.href}>
-                        <Icon className="h-5 w-5" strokeWidth={1.8} />
-                      </Link>
-                    </Button>
-                  </TooltipTrigger>
-                  <TooltipContent side="right" className="text-xs">
-                    {item.label}
-                  </TooltipContent>
-                </Tooltip>
-              )
-            })}
-          </nav>
+        {isExpanded ? (
+          <ArrowLeft className="h-5 w-5 text-gray-500" />
+        ) : (
+          <ArrowRight className="h-5 w-5 text-gray-500" />
+        )}
+      </button>
 
-          {/* Bottom badge (round "N") */}
-          <div className="mb-1">
-            <div
-              aria-label="Nav badge"
-              className="grid h-9 w-9 place-items-center rounded-full border bg-white shadow-sm text-xs font-medium text-muted-foreground"
-            >
-              N
-            </div>
-          </div>
-        </div>
-      </aside>
-    </TooltipProvider>
-  )
+      {/* Spacer */}
+      <div className="h-4 md:h-6" />
+
+      {/* Menu items */}
+      <nav className="flex-1 mt-2 md:mt-4 overflow-y-auto">
+        {menuItems.map((item) => {
+          const isActive = pathname === item.href;
+          return (
+            <Link key={item.label} href={item.href}>
+              <div
+                className={cn(
+                  "flex items-center cursor-pointer px-3 py-2 md:px-4 md:py-3 mx-2 md:mx-3 my-1 md:my-2 transition-colors text-sm md:text-base rounded-md",
+                  isActive
+                    ? "bg-gradient-to-r from-[#5BB200] to-[#7CC500] text-white font-semibold"
+                    : "text-[#6E6F72] hover:bg-gray-100"
+                )}
+              >
+                {item.icon === "connect" ? (
+                  <Image
+                    src="/connect.png"
+                    alt="Quick Connect"
+                    width={22}
+                    height={22}
+                    className="md:w-[30px] md:h-[30px] animate-spin-slow"
+                  />
+                ) : (
+                  (() => {
+                    const Icon = item.icon as React.ElementType;
+                    return (
+                      <Icon className="h-5 w-5 md:h-6 md:w-6 flex-shrink-0" />
+                    );
+                  })()
+                )}
+                {isExpanded && (
+                  <span className="ml-3 md:ml-4 whitespace-nowrap text-[13px] md:text-[15px]">
+                    {item.label}
+                  </span>
+                )}
+              </div>
+            </Link>
+          );
+        })}
+      </nav>
+    </aside>
+  );
 }
