@@ -67,7 +67,7 @@ export default function Sidebar() {
                 className={cn(
                   "flex items-center cursor-pointer px-3 py-2 md:px-4 md:py-3 mx-2 md:mx-3 my-1 md:my-2 transition-colors text-sm md:text-base rounded-md",
                   isActive
-                    ? "bg-gradient-to-r from-[#5BB200] to-[#7CC500] text-white font-semibold"
+                    ? "bg-gradient-to-r from-[#428003] to-[#a2e65c] text-white font-semibold"
                     : "text-[#6E6F72] hover:bg-gray-100"
                 )}
               >
