@@ -58,7 +58,7 @@ export default function Topbar() {
 
       {/* Right Controls */}
       <div className="flex items-center gap-3 sm:gap-4 flex-shrink-0">
-        <div className="hidden sm:flex items-center gap-2 text-[#6E6F72] text-sm md:text-md truncate max-w-[200px]">
+        <div className="hidden sm:flex items-center gap-2 text-[#6E6F72] text-sm md:text-md truncate max-w-[280px]">
           <span className="flex items-center">
             <span className="mr-1">
               <svg
@@ -83,7 +83,7 @@ export default function Topbar() {
             </span>
             Select Facility
           </span>
-          <span className="text-[#434343] truncate">Dental Care Unit</span>
+          <span className="text-[#434343]">Dental Care Unit</span>
         </div>
 
         <Bell className="h-5 w-5 text-gray-500 flex-shrink-0" />
