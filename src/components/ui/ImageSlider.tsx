@@ -155,7 +155,6 @@ export default function ImageSlider({ sliderImages }: Props) {
             className="object-cover animate-blurOut"
           />
         )}
-
         {/* Overlay text */}
         <div className="absolute bottom-28 left-12 text-white max-w-lg z-30 transition-opacity duration-700 ease-in-out">
           <h3 className="text-3xl font-extrabold leading-snug">
@@ -166,7 +165,6 @@ export default function ImageSlider({ sliderImages }: Props) {
           </p>
         </div>
       </div>
-
       {/* Pagination dots */}
       <div className="absolute bottom-20 left-12 flex gap-2 z-40">
         {sliderImages.map((_, index) => (

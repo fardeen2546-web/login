@@ -88,7 +88,7 @@ export default function Sidebar() {
                   })()
                 )}
                 {isExpanded && (
-                  <span className="ml-3 md:ml-4 whitespace-nowrap text-[13px] md:text-[15px]">
+                  <span className="ml-3 md:ml-4 whitespace-nowrap text-[15px] md:text-[17px] font-bold">
                     {item.label}
                   </span>
                 )}
