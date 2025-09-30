@@ -16,8 +16,7 @@ import { useState } from "react";
 
 export default function Topbar() {
   const router = useRouter();
-  const [facility, setFacility] = useState("Dental Care Unit"); // ✅ state for facility
-
+  const [facility, setFacility] = useState("Dental Care Unit");
   return (
     <div className="flex items-center justify-between bg-white px-4 h-20 md:h-24 w-full overflow-hidden">
       {/* Left Logo */}
